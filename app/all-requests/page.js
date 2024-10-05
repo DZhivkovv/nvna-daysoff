@@ -125,7 +125,7 @@ const Page = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <main className="flex-grow p-4 overflow-auto max-h-[calc(100vh-15vh)]">
+      <main className="flex-grow p-4 overflow-auto max-h-[calc(100vh-20vh)]">
         {isLoading && <LoadingSpinner />}
 
         {/* Explanatory Text */}

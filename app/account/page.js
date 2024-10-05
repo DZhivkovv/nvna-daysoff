@@ -1,12 +1,11 @@
-"use client";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import LeaveRequest from '../components/LeaveRequest';
 import IconButton from '../components/IconButton';
 import useLoading from '@/app/hooks/useLoader';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { fetchDaysOff, downloadDaysOffInvoice, updateDaysOffInDatabase, removeDaysOffFromDatabase } from '../utils/daysoff/leaveRequest';
-import { FaFileDownload, FaEdit, FaRegTrashAlt } from "react-icons/fa";
+import { fetchDaysOff, updateDaysOffInDatabase, removeDaysOffFromDatabase } from '../utils/daysoff/leaveRequest';
+import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
@@ -19,11 +18,9 @@ const Page = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  if(!session)
-  {
+  if(!session) {
     router.push('/signin');
   }
-
 
   // Функция за извличане на данните за всички заявления за отпуски от сървъра
   const fetchDaysOffData = async () => {
@@ -38,7 +35,6 @@ const Page = () => {
     fetchDaysOffData();
   }, []);
 
-
   const handleEditClick = (dayOff) => {
     setEditId(dayOff.id);
     setUpdatedData({ startDate: dayOff.start, endDate: dayOff.end });
@@ -46,7 +42,6 @@ const Page = () => {
 
   const handleUpdate = async (id) => {
     await updateDaysOffInDatabase(id, updatedData);
-    
     fetchDaysOffData();
     setEditId(null);
   };
@@ -64,47 +59,54 @@ const Page = () => {
         {userLeaveRequests.length === 0 ? (
           <p>Няма текущи молби за отпуск. Можете да пуснете молба за отпуск, ако имате нужда.</p>
         ) : (
-          userLeaveRequests.map((leaveRequest) => (
-            <LeaveRequest
-              key={leaveRequest.id}
-              id={leaveRequest.id}
-              startDate={new Date(leaveRequest.start).toLocaleDateString()}
-              endDate={new Date(leaveRequest.end).toLocaleDateString()}
-              onEdit={() => handleEditClick(leaveRequest)}
-              isEditing={editId === leaveRequest.id}
-              updatedData={updatedData}
-              setUpdatedData={setUpdatedData}
-              handleUpdate={handleUpdate}
-              handleCancelEdit={() => setEditId(null)}
-            >
-              <div className="flex flex-col">
-                <div className='text-left'>
-                  <p>{leaveRequest.title}</p>
-                  <p><strong>Статус:</strong> 
-                    {leaveRequest.status === "Approved" ? " Одобрена" : 
-                      leaveRequest.status === "Declined" ? " Неодобрена" :
-                      leaveRequest.status === "Pending" ? " В процес на разглеждане" :
-                      ""}
-                  </p>
+          userLeaveRequests.map((leaveRequest) => {
+            const startDate = new Date(leaveRequest.start);
+            const endDate = new Date(leaveRequest.end);
+            const startDateString = startDate.toLocaleDateString('bg-BG'); // Bulgarian locale
+            const endDateString = endDate.toLocaleDateString('bg-BG');
+
+            return (
+              <LeaveRequest
+                key={leaveRequest.id}
+                id={leaveRequest.id}
+                startDate={startDateString} // Use formatted date string
+                endDate={endDateString}     // Use formatted date string
+                onEdit={() => handleEditClick(leaveRequest)}
+                isEditing={editId === leaveRequest.id}
+                updatedData={updatedData}
+                setUpdatedData={setUpdatedData}
+                handleUpdate={handleUpdate}
+                handleCancelEdit={() => setEditId(null)}
+              >
+                <div className="flex flex-col">
+                  <div className='text-left'>
+                    <p>{leaveRequest.title}</p>
+                    <p><strong>Статус:</strong> 
+                      {leaveRequest.status === "Approved" ? " Одобрена" : 
+                        leaveRequest.status === "Declined" ? " Неодобрена" :
+                        leaveRequest.status === "Pending" ? " В процес на разглеждане" :
+                        ""}
+                    </p>
+                  </div>
+                  
+                  <div className="flex justify-end">
+                    {leaveRequest.status === "Pending" && (
+                      <div>
+                        <IconButton
+                          onClick={() => handleEditClick(leaveRequest)}
+                          icon={<FaEdit />}
+                        />
+                        <IconButton
+                          onClick={() => handleDelete(leaveRequest.id)}
+                          icon={<FaRegTrashAlt />}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
-                
-                <div className="flex justify-end">
-                  {leaveRequest.status === "Pending" && (
-                    <div>
-                      <IconButton
-                        onClick={() => handleEditClick(leaveRequest)}
-                        icon={<FaEdit />}
-                      />
-                      <IconButton
-                        onClick={() => handleDelete(leaveRequest.id)}
-                        icon={<FaRegTrashAlt />}
-                      />
-                    </div>
-                  )}
-                </div>
-              </div>
-            </LeaveRequest>
-          ))
+              </LeaveRequest>
+            );
+          })
         )}
       </div>
 
