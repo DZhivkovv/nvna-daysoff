@@ -16,7 +16,7 @@ const LogoutPage = () => {
         <div className='flex justify-center space-x-4'>
           {/* Бутон за изход */}
           {/* При натискането на този бутон, се извиква функцията signOut - потребителят излиза от профила си и бива пренасочен към страницата за вход (/signIn). */}
-          <button className='bg-indigo-900 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-md' onClick={() => signOut()}>Изход</button>
+          <button className='bg-indigo-900 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-md' onClick={() => signOut('https://nvna-daysoff.onrender.com/signin')}>Изход</button>
           
           {/* Бутон за отказ */}
           <Link href='/'>
