@@ -14,7 +14,10 @@ const Page = () => {
 
   return (
     <div className='h-screen relative'>
-      <Calendar />
+        <p className="text-lg font-medium text-gray-700 text-center">
+          Календар с одобрени отпуски.
+        </p>
+        <Calendar />
     </div>
   );
 };
