@@ -1,10 +1,14 @@
+"use client"
 import React from 'react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 //Формуляр за вход в системата.
 import SignInForm from '../components/auth/SignInForm';
 
+
 //Страница за вход: Позволява на потребителите да влязат в профила си.
 const SignInPage = () => {
+  
   return (
     <div className='w-full h-full'>
         <div className="absolute bottom-0 right-20 w-[700px] h-[700px] z-0 bg-cover bg-no-repeat background-size: contain transform rotate-[35deg] opacity-20"style={{ backgroundImage: "url('/anchor.png')" }}/>

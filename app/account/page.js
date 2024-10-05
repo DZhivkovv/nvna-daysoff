@@ -8,6 +8,8 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { fetchDaysOff, downloadDaysOffInvoice, updateDaysOffInDatabase, removeDaysOffFromDatabase } from '../utils/daysoff/leaveRequest';
 import { FaFileDownload, FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+
 // Страница, показваща всички заявления за отпуск на потребителя, който е влязъл в системата.
 const Page = () => {
   const [userLeaveRequests, setUserLeaveRequests] = useState([]);
@@ -15,6 +17,13 @@ const Page = () => {
   const [updatedData, setUpdatedData] = useState({ startDate: '', endDate: '' });
   const [isLoading, setLoading] = useLoading();
   const { data: session, status } = useSession();
+  const router = useRouter();
+  
+  if(!session)
+  {
+    router.push('/signin');
+  }
+
 
   // Функция за извличане на данните за всички заявления за отпуски от сървъра
   const fetchDaysOffData = async () => {

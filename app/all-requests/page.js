@@ -4,6 +4,8 @@ import useLoading from '../hooks/useLoader';
 import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import LeaveRequests from '../components/LeaveRequest';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
   const [userIsAdmin, setUserIsAdmin] = useState(false);
@@ -11,6 +13,15 @@ const Page = () => {
   const [successMessage, setSuccessMessage] = useState(''); // State for success message
   const [isLoading, setLoading] = useLoading(false);
   const [events, setEvents] = useState([]);
+
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  
+  if(!session)
+  {
+    router.push('/signin');
+  }
+
 
   const fetchEmployeeData = async () => {
     const response = await fetch(`/api/employees/`);

@@ -1,7 +1,18 @@
+"use client";
 import React from 'react';
 import VacationForm from '../components/VacationForm';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const VacationRequestPage = () => {
+
+  const router = useRouter();
+  const { data: session, status } = useSession()
+  if(!session)
+  {
+    router.push('/signin');
+  }
+
   return (
     <div className="flex h-full items-center justify-center bg-gradient-to-r from-blue-50 to-blue-100">
       <div 
