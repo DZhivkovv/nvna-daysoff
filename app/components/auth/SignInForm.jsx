@@ -38,7 +38,7 @@ const SignInForm = ({ children }) => {
   };
 
   return (
-    <div className="flex items-center justify-center h-[92%]">
+    <div className="flex items-center justify-center h-[92%] overflow-hidden">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="sm: w-[95%] md: max-w-md px-10 pt-8 pb-10 bg-white shadow-md rounded-md z-20  items-center"

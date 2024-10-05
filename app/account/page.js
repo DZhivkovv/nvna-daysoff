@@ -18,7 +18,7 @@ const Page = () => {
   const [isLoading, setLoading] = useLoading();
   const { data: session, status } = useSession();
   const router = useRouter();
-  
+
   if(!session)
   {
     router.push('/signin');
@@ -50,12 +50,6 @@ const Page = () => {
     fetchDaysOffData();
     setEditId(null);
   };
-
-  const handleDownload = async (id, startDate, endDate) => {
-    setLoading(true);
-    await downloadDaysOffInvoice(id, startDate, endDate);
-    setLoading(false);
-  }
 
   const handleDelete = async (id) => {
     await removeDaysOffFromDatabase(id);
@@ -106,12 +100,6 @@ const Page = () => {
                         icon={<FaRegTrashAlt />}
                       />
                     </div>
-                  )}
-                  {leaveRequest.status === "Approved" && (
-                    <IconButton
-                      onClick={() => handleDownload(leaveRequest.id, leaveRequest.start, leaveRequest.end)}
-                      icon={<FaFileDownload />}
-                    />
                   )}
                 </div>
               </div>
