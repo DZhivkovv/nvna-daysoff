@@ -130,7 +130,7 @@ const Page = () => {
 
 
         <div className="mb-4 text-center">
-          <h1 className="text-2xl font-bold">Управление на молби за отпуск</h1>
+          <h1 className="text-2xl font-bold">Подадени молби за отпуск</h1>
           <p className="text-gray-600">Тук можете да преглеждате молбите за отпуск на всички служители.</p>
           <p>Само администратори могат да одобряват или отказват молби.</p>
         </div>
