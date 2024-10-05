@@ -128,12 +128,13 @@ const Page = () => {
       <main className="flex-grow p-4 overflow-auto max-h-[calc(100vh-20vh)]">
         {isLoading && <LoadingSpinner />}
 
-        {/* Explanatory Text */}
+
         <div className="mb-4 text-center">
           <h1 className="text-2xl font-bold">Управление на молби за отпуск</h1>
-          <p className="text-gray-600">Тук можете да преглеждате, одобрявате или отказвате молби за отпуск от служителите.</p>
-          <p>Молбите със статус &quot;В процес на разглеждане&quot; чакат вашето решение.</p>
+          <p className="text-gray-600">Тук можете да преглеждате молбите за отпуск на всички служители.</p>
+          <p>Само администратори могат да одобряват или отказват молби.</p>
         </div>
+
 
         {events.length > 0 ? (
           <div className="h-full max-h-screen">
