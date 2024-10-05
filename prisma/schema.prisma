@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+enum Department {
+  KORABNI_MASHINI_MEHANIZMI
+  ELEKTROTEHNIKA
+  MEHATRONIKA
+  ELEKTRONIKA
+  INFORMACIONNI_TEHNOLOGII
+  ORGANIZACIA_UPRAVLENIE_VOENNI_FORMIRANIA
+  KORABOVODENE
+  NACIONALNA_SIGURNOST
+  EKSPLOATACIA_MENIDZHMANT_MORSKI_TRANSPORT
+  EZIKOVA_PODGOTOVKA
+}
+
+model Employee {
+  id          Int           @id @default(autoincrement())
+  firstName   String
+  middleName  String
+  lastName    String
+  email       String        @unique
+  password    String
+  createdAt   DateTime      @default(now())
+  department  Department    
+  isAdmin     Boolean       @default(false)
+  usedDaysOff Int           @default(0)
+  LeaveRequest LeaveRequest[]
+}
+
+model LeaveRequest {
+  id          Int       @id @default(autoincrement())
+  start       DateTime  @map("start") @db.Date
+  end         DateTime  @map("end") @db.Date
+  employeeId  Int?
+  Employee    Employee?  @relation(fields: [employeeId], references: [id])
+  status      String     @default("Pending")
+}
