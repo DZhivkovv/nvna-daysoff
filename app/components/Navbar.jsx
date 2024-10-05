@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
 const NavigationLinks = ({ userEmail, isOpen }) => {
@@ -43,11 +42,11 @@ const Navbar = () => {
     <nav className="w-full bg-white shadow-md z-50 relative">
       <div className="container mx-auto px-4 flex justify-between items-center py-3">
         <Link href="/" className='text-xl font-bold'>
-        <Image
+        <img
             src='/nvna-logo.png'
             alt='Nikola Vaptsarov Naval Academy'
-            width={80} // Set width
-            height={80} // Set height
+            className='w-20 h-15' 
+
           />        
         </Link>
 

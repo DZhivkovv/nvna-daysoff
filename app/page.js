@@ -1,22 +1,19 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 const Home = () => {
   return (
     <div className="h-screen flex relative">
       <div className="hidden lg:flex w-1/2 h-full bg-no-repeat bg-center md:bg-fixed items-center justify-center relative left-side">
-        <Image 
+        <img 
           src="/nvna.jpg" 
           alt="Background Image" 
-          layout="fill" // Ensures the image fills its container
-          objectFit="cover" // Ensures the image covers the area
-          className="absolute inset-0 z-0" // Ensure it's behind other elements
+          className="absolute inset-0 w-full h-full object-cover z-0" 
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black opacity-50 z-10" />
       </div>
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center px-4 py-8 h-full"> {/* Add h-full to the flex container */}
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center px-4 py-8 h-full">
         <h1 className="text-4xl text-center md:text-5xl font-bold text-gray-800 mb-4">ВВМУ Н. Й. Вапцаров</h1>
         <p className="text-gray-700 text-center mb-8">
           Добре дошли в системата за запазване на отпуски на ВВМУ Н. Й. Вапцаров!
