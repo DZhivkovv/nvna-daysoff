@@ -3,9 +3,12 @@ import React from 'react'
 import Link from 'next/link'
 //Функция за иницииране на процеса на излизане от системата. 
 import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 //Страница за изход: Позволява на потребителите да излязат от профила си.
 const LogoutPage = () => {
+  const router = useRouter();
+
   return (
     <div className='h-full w-full flex flex-col items-center justify-center bg-gray-100'>
       <div className='bg-white p-8 rounded-lg shadow-md'>
@@ -16,7 +19,10 @@ const LogoutPage = () => {
         <div className='flex justify-center space-x-4'>
           {/* Бутон за изход */}
           {/* При натискането на този бутон, се извиква функцията signOut - потребителят излиза от профила си и бива пренасочен към страницата за вход (/signIn). */}
-          <button className='bg-indigo-900 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-md' onClick={() => signOut({ callbackUrl: 'https://nvna-daysoff.onrender.com/signin' })}>Изход</button>
+          <button className='bg-indigo-900 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-md' onClick={() => {
+           signOut();
+            router.push('/signin');
+          }}>Изход</button>
           
           {/* Бутон за отказ */}
           <Link href='/'>
